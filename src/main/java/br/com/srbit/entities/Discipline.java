@@ -36,5 +36,8 @@ public class Discipline {
         this.semestre = semestre;
     }
 
-
+    @Override
+    public String toString() {
+        return "name='" + name;
+    }
 }

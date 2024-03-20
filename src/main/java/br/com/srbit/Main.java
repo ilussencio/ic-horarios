@@ -62,93 +62,94 @@ public class Main {
         ArrayList<Discipline> p_terceiro = new ArrayList<>();
         ArrayList<Discipline> p_quarto = new ArrayList<>();
         ArrayList<Discipline> p_quinto = new ArrayList<>();
-        p_primeiro.add(dis_fundamentos);
-        p_primeiro.add(dis_logica);
-        p_primeiro.add(dis_requisitos);
-        p_primeiro.add(dis_empreendorismo);
-        p_primeiro.add(dis_web_static);
-        p_segundo.add(dis_algoritos);
-        p_segundo.add(dis_fundamentos_db);
-        p_segundo.add(dis_js_basico);
-        p_segundo.add(dis_poo1);
-        p_segundo.add(dis_mvc);
-        p_terceiro.add(dis_bd_avancado);
-        p_terceiro.add(dis_poo2);
-        p_terceiro.add(dis_back_end_monolito);
-        p_terceiro.add(dis_front_end);
-        p_terceiro.add(dis_teste);
-        p_quarto.add(dis_db_nosql);
-        p_quarto.add(dis_ihc);
-        p_quarto.add(dis_app_mobile);
-        p_quarto.add(dis_back_nosql);
-        p_quarto.add(dis_sistemas_distribuidos);
-        p_quinto.add(dis_libras);
-        p_quinto.add(dis_topicos);
-        p_quinto.add(dis_ic);
-        p_quinto.add(dis_monografia);
-        p_quinto.add(dis_seguranca);
 
         p_primeiro.add(dis_fundamentos);
         p_primeiro.add(dis_logica);
         p_primeiro.add(dis_requisitos);
         p_primeiro.add(dis_empreendorismo);
         p_primeiro.add(dis_web_static);
+        p_primeiro.add(dis_fundamentos);
+        p_primeiro.add(dis_logica);
+        p_primeiro.add(dis_requisitos);
+        p_primeiro.add(dis_empreendorismo);
+        p_primeiro.add(dis_web_static);
+
         p_segundo.add(dis_algoritos);
         p_segundo.add(dis_fundamentos_db);
         p_segundo.add(dis_js_basico);
         p_segundo.add(dis_poo1);
         p_segundo.add(dis_mvc);
+        p_segundo.add(dis_algoritos);
+        p_segundo.add(dis_fundamentos_db);
+        p_segundo.add(dis_js_basico);
+        p_segundo.add(dis_poo1);
+        p_segundo.add(dis_mvc);
+
         p_terceiro.add(dis_bd_avancado);
         p_terceiro.add(dis_poo2);
         p_terceiro.add(dis_back_end_monolito);
         p_terceiro.add(dis_front_end);
         p_terceiro.add(dis_teste);
+        p_terceiro.add(dis_bd_avancado);
+        p_terceiro.add(dis_poo2);
+        p_terceiro.add(dis_back_end_monolito);
+        p_terceiro.add(dis_front_end);
+        p_terceiro.add(dis_teste);
+
         p_quarto.add(dis_db_nosql);
         p_quarto.add(dis_ihc);
         p_quarto.add(dis_app_mobile);
         p_quarto.add(dis_back_nosql);
         p_quarto.add(dis_sistemas_distribuidos);
+        p_quarto.add(dis_db_nosql);
+        p_quarto.add(dis_ihc);
+        p_quarto.add(dis_app_mobile);
+        p_quarto.add(dis_back_nosql);
+        p_quarto.add(dis_sistemas_distribuidos);
+
         p_quinto.add(dis_libras);
         p_quinto.add(dis_topicos);
         p_quinto.add(dis_ic);
         p_quinto.add(dis_monografia);
         p_quinto.add(dis_seguranca);
-
+        p_quinto.add(dis_libras);
+        p_quinto.add(dis_topicos);
+        p_quinto.add(dis_ic);
+        p_quinto.add(dis_monografia);
+        p_quinto.add(dis_seguranca);
 
         // POPULACAO INICIAL
         System.out.print("Entre com a quantidade da populacao: ");
         int quant_pop = scanner.nextInt();
 
-        //Declaracao do array de populacao
-        Discipline[][] populacao = new Discipline[quant_pop][50];
+        // DECLARACAO DO ARRAY LIST PARA POPULCAO
+        ArrayList<ArrayList<Discipline>> populacao = new ArrayList<>();
+
         for( int i = 0; i < quant_pop; i++){
-            for( int j = 0; j < 50; j += 10){
-                if(j == 0){
-                    Collections.shuffle(p_primeiro);
-                }
-                if( j == 10 ) {
-                    Collections.shuffle(p_segundo);
-                }
-                if( j == 20 ){
-                    Collections.shuffle(p_terceiro);
-                }
-                if(j == 30){
-                    Collections.shuffle(p_quarto);
-                }
-                if( j == 40 ){
-                    Collections.shuffle(p_quinto);
-                }
-                System.out.println(j);
+            // MISTURANDO AS MATERIAS DOS PERIODOS
+            Collections.shuffle(p_primeiro);
+            Collections.shuffle(p_segundo);
+            Collections.shuffle(p_terceiro);
+            Collections.shuffle(p_quarto);
+            Collections.shuffle(p_quinto);
 
+            // DEFINICAO DE ARRAYLIST PARA 1 INDIVIDUO
+            ArrayList<Discipline> individuo = new ArrayList<>();
 
+            // ADICIONANDO AS MATERIAS EM 1 INDIVIDUO
+            individuo.addAll(p_primeiro);
+            individuo.addAll(p_segundo);
+            individuo.addAll(p_terceiro);
+            individuo.addAll(p_quarto);
+            individuo.addAll(p_quinto);
 
-
-
-            }
+            // INSERINDO O INDIVIDUO NA POPULACAO
+            populacao.add(individuo);
         }
 
-
-        System.out.println("Hello world!");
+        for (ArrayList<Discipline> disciplines : populacao) {
+            System.out.println(disciplines);
+        }
     }
-
 }
+
