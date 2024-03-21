@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
-    static int menor = 100000;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -18,25 +17,41 @@ public class Main {
         System.out.print("Entre com a quantidade da population: ");
         int quant_pop = scanner.nextInt();
 
+        ArrayList<Integer> notes = new ArrayList<Integer>();
         ArrayList<ArrayList<Discipline>> population = generatePopulation(quant_pop);
-        for(ArrayList<Discipline> disciplines: population){
 
-            System.out.println("Nota: "+ avaliateIndividuo(disciplines));
+        ArrayList<ArrayList<Discipline>> populationRanked = new ArrayList<>();
+
+        // POPULATION RANKED CRESCENT
+        for(ArrayList<Discipline> disciplines: population){
+            notes.add(assessmentIndividual(disciplines));
         }
 
-        System.out.println("Menor: "+ menor);
+        Collections.sort(notes);
+        for(int note: notes){
+            for(ArrayList<Discipline> disciplines: population){
+                if(assessmentIndividual(disciplines) == note){
+                    populationRanked.add(disciplines);
+                }
+            }
+        }
 
+
+
+
+
+        for(ArrayList<Discipline> disciplines: populationRanked){
+            System.out.println(assessmentIndividual(disciplines));
+        }
     }
 
-    public static int avaliateIndividuo(ArrayList<Discipline> array){
+    public static int assessmentIndividual(ArrayList<Discipline> array){
         int count = 0;
 
         for( int h = 0; h < array.size(); h++ )
             for( int i = h + 10; i < array.size(); i += 10)
                 if(array.get(h).getTeacher().equals(array.get(i).getTeacher()))
                     count ++;
-        if(count < menor)
-            menor = count;
         return count;
     }
 
