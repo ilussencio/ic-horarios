@@ -2,6 +2,8 @@ package br.com.srbit.entities;
 
 import br.com.srbit.enumeration.SemestreEnum;
 
+import java.util.Objects;
+
 public class Discipline {
     private String name;
     private Teacher teacher;
@@ -37,7 +39,20 @@ public class Discipline {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Discipline that = (Discipline) o;
+        return Objects.equals(name, that.name) && Objects.equals(teacher, that.teacher) && semestre == that.semestre;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, teacher, semestre);
+    }
+
+    @Override
     public String toString() {
-        return "name='" + name;
+        return teacher.getName();
     }
 }

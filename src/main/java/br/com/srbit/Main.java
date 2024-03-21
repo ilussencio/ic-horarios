@@ -5,14 +5,42 @@ import br.com.srbit.entities.Teacher;
 import br.com.srbit.enumeration.SemestreEnum;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
+    static int menor = 100000;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        // POPULATION INITIAL
+        System.out.print("Entre com a quantidade da population: ");
+        int quant_pop = scanner.nextInt();
+
+        ArrayList<ArrayList<Discipline>> population = generatePopulation(quant_pop);
+        for(ArrayList<Discipline> disciplines: population){
+
+            System.out.println("Nota: "+ avaliateIndividuo(disciplines));
+        }
+
+        System.out.println("Menor: "+ menor);
+
+    }
+
+    public static int avaliateIndividuo(ArrayList<Discipline> array){
+        int count = 0;
+
+        for( int h = 0; h < array.size(); h++ )
+            for( int i = h + 10; i < array.size(); i += 10)
+                if(array.get(h).getTeacher().equals(array.get(i).getTeacher()))
+                    count ++;
+        if(count < menor)
+            menor = count;
+        return count;
+    }
+
+    public static ArrayList<ArrayList<Discipline>> generatePopulation(int quant_pop){
         //PROFESSORES
         Teacher t_bruno = new Teacher("Bruno Queiroz Pinto");
         Teacher t_camilo = new Teacher("Camilo de Lellis Barreto Junior");
@@ -118,38 +146,30 @@ public class Main {
         p_quinto.add(dis_monografia);
         p_quinto.add(dis_seguranca);
 
-        // POPULACAO INICIAL
-        System.out.print("Entre com a quantidade da populacao: ");
-        int quant_pop = scanner.nextInt();
-
-        // DECLARACAO DO ARRAY LIST PARA POPULCAO
-        ArrayList<ArrayList<Discipline>> populacao = new ArrayList<>();
+        // ARRAY LIST DECLARATION FOR THE POPULATION
+        ArrayList<ArrayList<Discipline>> population = new ArrayList<>();
 
         for( int i = 0; i < quant_pop; i++){
-            // MISTURANDO AS MATERIAS DOS PERIODOS
+            // MIXING THE MATERIALS OF THE PERIODS
             Collections.shuffle(p_primeiro);
             Collections.shuffle(p_segundo);
             Collections.shuffle(p_terceiro);
             Collections.shuffle(p_quarto);
             Collections.shuffle(p_quinto);
 
-            // DEFINICAO DE ARRAYLIST PARA 1 INDIVIDUO
-            ArrayList<Discipline> individuo = new ArrayList<>();
+            // DEFINING ARRAYLIST FOR INDIVIDUAL
+            ArrayList<Discipline> individual = new ArrayList<>();
 
-            // ADICIONANDO AS MATERIAS EM 1 INDIVIDUO
-            individuo.addAll(p_primeiro);
-            individuo.addAll(p_segundo);
-            individuo.addAll(p_terceiro);
-            individuo.addAll(p_quarto);
-            individuo.addAll(p_quinto);
+            // ADD DISCIPLINE IN INDIVIDUAL
+            individual.addAll(p_primeiro);
+            individual.addAll(p_segundo);
+            individual.addAll(p_terceiro);
+            individual.addAll(p_quarto);
+            individual.addAll(p_quinto);
 
-            // INSERINDO O INDIVIDUO NA POPULACAO
-            populacao.add(individuo);
+            // INSERT INDIVIDUAL IN POPULATION
+            population.add(individual);
         }
-
-        for (ArrayList<Discipline> disciplines : populacao) {
-            System.out.println(disciplines);
-        }
+        return population;
     }
 }
-
